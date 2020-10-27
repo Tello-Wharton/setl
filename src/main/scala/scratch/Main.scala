@@ -1,0 +1,5 @@
+package scratch
+
+object Main {
+
+}

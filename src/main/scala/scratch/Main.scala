@@ -27,6 +27,7 @@ object Main {
 //    es.shutdown()
 
     val threads = ListBuffer.empty[Thread]
+    val sorters = ListBuffer.empty[Sorter]
 
     (0 until 4).foreach(i => {
 
@@ -34,7 +35,12 @@ object Main {
 
       val path = Path.of(f"D:\\${i}.txt")
       val loaderThread = new Thread(new Loader(path, intermediateBuffer))
-      val sorterThread = new Thread(new Sorter(intermediateBuffer))
+
+      val sorter = new Sorter(intermediateBuffer)
+      sorters += sorter
+
+      val sorterThread = new Thread(sorter)
+
 
       loaderThread.start()
       sorterThread.start()
@@ -44,6 +50,15 @@ object Main {
 
       println("Started")
     })
+
+    val finalSorter = new FinalSorter(sorters.toSeq)
+    val finalSorterThread = new Thread(finalSorter)
+    finalSorterThread.start()
+    threads += finalSorterThread
+
+    val writerThread = new Thread(new Writer(Path.of("D:\\done.txt"), finalSorter))
+    writerThread.start()
+    threads += writerThread
 
     threads.foreach(_.join())
   }

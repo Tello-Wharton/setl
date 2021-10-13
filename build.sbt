@@ -2,4 +2,4 @@ name := "setl"
 
 version := "0.0.0"
 
-scalaVersion := "2.13.3"
+scalaVersion := "3.0.2"

@@ -41,6 +41,11 @@ object Main {
     println(dff3.data)
     println(dff4.data)
 
+
+
+    val cake = df1.select2(new Column2("b"))
+    println(cake.data)
+
   }
 
 }

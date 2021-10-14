@@ -14,12 +14,12 @@ object Main {
     val df1 = new DataFrame(schema, data);
 
 
-    val df2 = df1.select2(new Column2("c") === new Column2("b"))
+    val df2 = df1.select(new Column2("c") === new Column2("b"))
 
     println(df2.data)
 
 
-    val df3 = df1.filter2(new Column2("a") === new Column2("b"))
+    val df3 = df1.filter(new Column2("a") === new Column2("b"))
 
     println(df3.data)
 

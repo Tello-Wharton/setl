@@ -2,9 +2,9 @@ package scratch2
 
 class DataFrame(val schema: Seq[String], val data: Seq[Seq[ColType]]) {
 
-  def select(cols: String*): DataFrame = select2(cols.map(col => new Column2(col)) *)
+  def select(col: String, cols: String*): DataFrame = select((col +: cols).map(col => new Column2(col)) *)
 
-  def select2(cols: Column2*): DataFrame = {
+  def select(cols: Column2*): DataFrame = {
 
     val colFuncs = cols.map(_ func this)
     val newSchema = cols.map(_.name)
@@ -13,7 +13,7 @@ class DataFrame(val schema: Seq[String], val data: Seq[Seq[ColType]]) {
     return new DataFrame(schema, newData)
   }
 
-  def filter2(filterCol: Column2): DataFrame = {
+  def filter(filterCol: Column2): DataFrame = {
 
     val f = filterCol.func(this)
 

@@ -19,7 +19,7 @@ class Column2(val name: String, val func: Function[DataFrame, Function[Seq[Strin
     })
   }
 
-  def equals(col: Column2) : Column2 = {
+  def ===(col: Column2) : Column2 = {
 
     val name = s"${this.name} equals ${col.name}"
 

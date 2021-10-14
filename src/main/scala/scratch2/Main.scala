@@ -14,7 +14,7 @@ object Main {
     val df1 = new DataFrame(schema, data);
 
 
-    val df2 = df1.select2(new Column2("c") equals new Column2("b"))
+    val df2 = df1.select2(new Column2("c") === new Column2("b"))
 
     println(df2.data)
   }

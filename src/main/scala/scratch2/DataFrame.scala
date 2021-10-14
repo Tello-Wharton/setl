@@ -1,6 +1,6 @@
 package scratch2
 
-class DataFrame(val schema: Seq[String], val data: Seq[Seq[String]]) {
+class DataFrame(val schema: Seq[String], val data: Seq[Seq[ColType]]) {
 
   def select(cols: String*): DataFrame = select2(cols.map(col => new Column2(col)) *)
 
@@ -13,12 +13,12 @@ class DataFrame(val schema: Seq[String], val data: Seq[Seq[String]]) {
     return new DataFrame(schema, newData)
   }
 
-  def filter(filterCol: Column[String, Boolean]): DataFrame = {
+  def filter2(filterCol: Column2): DataFrame = {
 
-    val use: Int = schema.zipWithIndex.find((el, idx) => el == filterCol.in).map((el, idx) => idx).get
-    val newData = data.filter(row => filterCol.func(row(use)))
+    val f = filterCol.func(this)
+
+    val newData = data.filter(row => f(row).asInstanceOf[Boolean])
 
     return new DataFrame(schema, newData)
-
   }
 }

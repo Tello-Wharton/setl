@@ -1,6 +1,6 @@
 package scratch2
 
-class Column2(val name: String, val func: Function[DataFrame, Function[Seq[ColType], ColType]]) {
+class Column(val name: String, val func: Function[DataFrame, Function[Seq[ColType], ColType]]) {
   def this(name: String) = {
     this(name, df => {
 
@@ -19,11 +19,11 @@ class Column2(val name: String, val func: Function[DataFrame, Function[Seq[ColTy
     })
   }
 
-  def ===(col: Column2): Column2 = {
+  def ===(col: Column): Column = {
 
     val name = s"${this.name} equals ${col.name}"
 
-    new Column2(name, df => {
+    new Column(name, df => {
       val f1 = this.func(df)
       val f2 = col.func(df)
 

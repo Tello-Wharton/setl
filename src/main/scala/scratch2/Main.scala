@@ -14,17 +14,17 @@ object Main {
     val df1 = new DataFrame(schema, data);
 
 
-    val df2 = df1.select(new Column2("c") === new Column2("b"))
+    val df2 = df1.select(new Column("c") === new Column("b"))
 
     println(df2.data)
 
 
-    val df3 = df1.filter(new Column2("a") === new Column2("b"))
+    val df3 = df1.filter(new Column("a") === new Column("b"))
 
     println(df3.data)
 
-    val df4 = df1.sort(new Column2("a"))
-    val df5 = df1.sort(new Column2("c"))
+    val df4 = df1.sort(new Column("a"))
+    val df5 = df1.sort(new Column("c"))
 
     println(df4.data)
     println(df5.data)

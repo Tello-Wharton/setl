@@ -1,5 +1,8 @@
 package scratch2
 
+
+
+
 object Main {
 
   def main(args: Array[String]): Unit = {
@@ -23,8 +26,10 @@ object Main {
 
     println(df3.data)
 
-    val df4 = df1.sort(new Column("a"))
-    val df5 = df1.sort(new Column("c"))
+    import functions._
+
+    val df4 = df1.sort($"a")
+    val df5 = df1.sort($"c")
 
     println(df4.data)
     println(df5.data)

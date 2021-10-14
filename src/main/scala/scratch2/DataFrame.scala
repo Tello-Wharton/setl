@@ -2,14 +2,7 @@ package scratch2
 
 class DataFrame(val schema: Seq[String], val data: Seq[Seq[String]]) {
 
-  def select(cols: String*): DataFrame = {
-
-    val keep: Seq[(String, Int)] = cols.flatMap(col => schema.zipWithIndex.find((el, idx) => el == col))
-    val newSchema = keep.map((col, idx) => col)
-    val newData = data.map(row => keep.map((col, idx) => row(idx)))
-
-    return new DataFrame(newSchema, newData)
-  }
+  def select(cols: String*): DataFrame = select2(cols.map(col => new Column2(col)) *)
 
   def select2(cols: Column2*): DataFrame = {
 

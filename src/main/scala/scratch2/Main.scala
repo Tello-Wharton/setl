@@ -23,6 +23,12 @@ object Main {
 
     println(df3.data)
 
+    val df4 = df1.sort(new Column2("a"))
+    val df5 = df1.sort(new Column2("c"))
+
+    println(df4.data)
+    println(df5.data)
+
 
   }
 

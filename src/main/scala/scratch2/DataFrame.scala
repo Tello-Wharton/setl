@@ -8,7 +8,7 @@ class DataFrame(val schema: Seq[String], val data: Seq[Seq[ColType]]) {
 
     val colFuncs = cols.map(_ func this)
     val newSchema = cols.map(_.name)
-    val newData = data.map(row => colFuncs.map(_(row)))
+    val newData = data.map(row => colFuncs.map(_ (row)))
 
     return new DataFrame(schema, newData)
   }
@@ -18,6 +18,14 @@ class DataFrame(val schema: Seq[String], val data: Seq[Seq[ColType]]) {
     val f = filterCol.func(this)
 
     val newData = data.filter(row => f(row).asInstanceOf[Boolean])
+
+    return new DataFrame(schema, newData)
+  }
+
+  def sort(col: Column2): DataFrame = {
+    val f = col.func(this)
+
+    val newData = data.sortBy(row => f(row).asInstanceOf[String])
 
     return new DataFrame(schema, newData)
   }

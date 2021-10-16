@@ -42,7 +42,7 @@ class Column(val name: String, val setlType: SetlType, val func: Function[DataFr
 object Column {
   private def colTypeToSetlType(colType: ColType): SetlType = colType match {
     case _: String => SetlType.StringType
-    case _: Int => SetlType.StringType
+    case _: Int => SetlType.IntegerType
     case _: Long => SetlType.LongType
     case _: Boolean => SetlType.BooleanType
   }

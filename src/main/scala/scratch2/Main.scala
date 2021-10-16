@@ -1,20 +1,16 @@
 package scratch2
 
-
+import scala.io.Source
 
 
 object Main {
 
   def main(args: Array[String]): Unit = {
 
-    val schema = Seq("a", "b", "c").map(col => (col, SetlType.StringType))
-    val data : Seq[Seq[ColType]] = Seq(
-      Seq("a1", "b1", "c1"),
-      Seq("a2", "b2", "b2"),
-      Seq("a3", "a3", "a3")
-    )
+    val source = Source.fromResource("example.csv")
+    val csvReader = new CsvReader(source)
 
-    val df1 = new DataFrame(schema, data);
+    val df1 = csvReader.getDataframe()
 
 
     val df2 = df1.select(new Column("c") === new Column("b"))
@@ -33,6 +29,10 @@ object Main {
 
     println(df4.data)
     println(df5.data)
+
+
+
+
 
 
   }

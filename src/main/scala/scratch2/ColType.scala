@@ -1,3 +1,3 @@
 package scratch2
 
-type ColType = String | Int | Boolean
+type ColType = String | Long | Int | Boolean

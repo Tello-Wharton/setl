@@ -2,33 +2,35 @@ package scratch2
 
 import scala.io.Source
 
+import SetlType._
+
+import functions._
 
 object Main {
 
   def main(args: Array[String]): Unit = {
 
-    val source = Source.fromResource("example.csv")
-    val csvReader = new CsvReader(source)
 
-    val df1 = csvReader.getDataframe()
+    val csvReader = new CsvReader()
+
+    val source1 = Source.fromResource("example.csv")
+    val df1 = csvReader.getDataframe(source1)
 
 
-    val df2 = df1.select(new Column("c") === new Column("b"))
+    println(df1.data)
+
+    val source2 = Source.fromResource("example2.csv")
+    val df2 = csvReader.getDataframe(source2, Seq(
+      ("a", StringType),
+      ("b", StringType),
+      ("c", StringType),
+      ("d", IntegerType),
+      ("e", IntegerType)
+    ))
 
     println(df2.data)
-
-
-    val df3 = df1.filter(new Column("a") === new Column("b"))
-
-    println(df3.data)
-
-    import functions._
-
-    val df4 = df1.sort($"a")
-    val df5 = df1.sort($"c")
-
-    println(df4.data)
-    println(df5.data)
+    println(df2.sort($"e").data)
+    println(df2.filter($"d" === $"e").data)
 
 
   }

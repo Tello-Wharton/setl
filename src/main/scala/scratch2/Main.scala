@@ -7,7 +7,7 @@ object Main {
 
   def main(args: Array[String]): Unit = {
 
-    val schema = Seq("a", "b", "c")
+    val schema = Seq("a", "b", "c").map(col => (col, SetlType.StringType))
     val data : Seq[Seq[ColType]] = Seq(
       Seq("a1", "b1", "c1"),
       Seq("a2", "b2", "b2"),

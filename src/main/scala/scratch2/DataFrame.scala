@@ -1,6 +1,8 @@
 package scratch2
 
-class DataFrame(val schema: Seq[String], val data: Seq[Seq[ColType]]) {
+import SetlType._
+
+class DataFrame(val schema: Seq[(String, SetlType)], val data: Seq[Seq[ColType]]) {
 
   def select(col: String, cols: String*): DataFrame = select((col +: cols).map(col => new Column(col)) *)
 

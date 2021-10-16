@@ -7,7 +7,7 @@ class Column(val name: String, val func: Function[DataFrame, Function[Seq[ColTyp
       val schema = df.schema
       val data = df.data
 
-      val idx: Int = schema.zipWithIndex.find((el, idx) => el == name).map((el, idx) => idx).getOrElse(throw new RuntimeException("Can't."))
+      val idx: Int = schema.map(_._1).zipWithIndex.find((el, idx) => el == name).map((el, idx) => idx).getOrElse(throw new RuntimeException("Can't."))
 
       row => row(idx)
     })

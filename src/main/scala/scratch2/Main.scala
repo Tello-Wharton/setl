@@ -32,6 +32,8 @@ object Main {
     println(df2.sort($"e").data)
     println(df2.filter($"d" === $"e").data)
 
+    println(df2.filter($"d" === lit(3)).data)
+
 
   }
 }

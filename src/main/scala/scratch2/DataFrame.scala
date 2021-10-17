@@ -54,15 +54,15 @@ class DataFrame(val schema: Seq[(String, SetlType)], val data: Seq[Seq[ColType]]
         (f1, f2) => {
           (row1: Seq[ColType], row2: Seq[ColType]) => {
             val res = f1(row1, row2)
-            if (res == 1) 1
-            else if (res == -1) -1
+            if (res > 0) 1
+            else if (res < 0) -1
             else f2(row1, row2)
           }
         })
 
     val masterFunctionBoolean = (row1: Seq[ColType], row2: Seq[ColType]) => {
       val res = masterFunction(row1, row2)
-      if (res == 1) true
+      if (res < 0) true
       else false
     }
 
@@ -79,36 +79,28 @@ class DataFrame(val schema: Seq[(String, SetlType)], val data: Seq[Seq[ColType]]
     setlType match {
       case StringType => (row1, row2) => {
         val a = f(row1).asInstanceOf[String]
-        val b = f(row1).asInstanceOf[String]
+        val b = f(row2).asInstanceOf[String]
 
-        if (a.equals(b)) 0
-        else if (a < b) 1
-        else -1
+        a.compareTo(b)
       }
       case IntegerType => (row1, row2) => {
         val a = f(row1).asInstanceOf[Int]
-        val b = f(row1).asInstanceOf[Int]
+        val b = f(row2).asInstanceOf[Int]
 
-        if (a == b) 0
-        else if (a < b) 1
-        else -1
-        
+        a.compareTo(b)
+
       }
       case LongType => (row1, row2) => {
         val a = f(row1).asInstanceOf[Long]
-        val b = f(row1).asInstanceOf[Long]
+        val b = f(row2).asInstanceOf[Long]
 
-        if (a == b) 0
-        else if (a < b) 1
-        else -1
+        a.compareTo(b)
       }
       case BooleanType => (row1, row2) => {
         val a = f(row1).asInstanceOf[Boolean]
-        val b = f(row1).asInstanceOf[Boolean]
+        val b = f(row2).asInstanceOf[Boolean]
 
-        if (a == b) 0
-        else if (a < b) 1
-        else -1
+        a.compareTo(b)
       }
     }
   }

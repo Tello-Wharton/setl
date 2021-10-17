@@ -17,8 +17,6 @@ object Main {
     val df1 = csvReader.getDataframe(source1)
 
 
-    println(df1.data)
-
     val source2 = Source.fromResource("example2.csv")
     val df2 = csvReader.getDataframe(source2, Seq(
       ("a", StringType),
@@ -28,11 +26,9 @@ object Main {
       ("e", IntegerType)
     ))
 
-    println(df2.data)
-    println(df2.sort($"e").data)
-    println(df2.filter($"d" === $"e").data)
 
-    println(df2.filter($"d" === lit(3)).data)
+    println(df2.sort($"e").data)
+    println(df2.sort2($"e").data)
 
 
   }

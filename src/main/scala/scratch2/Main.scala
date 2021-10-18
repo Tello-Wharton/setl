@@ -1,10 +1,10 @@
 package scratch2
 
 import scala.io.Source
+import SetlType.*
+import functions.*
 
-import SetlType._
-
-import functions._
+import java.nio.file.{Path, Paths}
 
 object Main {
 
@@ -13,7 +13,7 @@ object Main {
     val setl = new Setl()
 
     val df1 = setl.csv("example.csv")
-    
+
     val df2 = setl.csv("example2.csv", Seq(
       ("a", StringType),
       ("b", StringType),
@@ -43,8 +43,9 @@ object Main {
 
     println(df3.sort($"b".desc, $"e".desc).data)
 
+    val df4 = df3.sort($"b".desc, $"e".desc)
 
-
+    setl.writeCsv(df4, Paths.get("D:\\example.csv"))
 
   }
 }

@@ -2,6 +2,7 @@ package scratch2
 
 import scratch2.SetlType.SetlType
 
+import java.nio.file.Path
 import scala.io.Source
 
 class Setl {
@@ -16,6 +17,13 @@ class Setl {
     val csvReader = new CsvReader()
     val source = Source.fromResource(resource)
     csvReader.getDataframe(source, schema)
+  }
+
+  def writeCsv(dataFrame: DataFrame, path: Path) : Unit = {
+
+    val csvWriter = new CsvWriter()
+    csvWriter.writeDataFrame(dataFrame, path)
+
   }
 
 }

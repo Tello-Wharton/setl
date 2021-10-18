@@ -1,9 +1,11 @@
-package scratch2
+package scratch2.csv
+
+import scratch2.DataFrame
+import scratch2.SetlType._
+import scratch2.ColType
 
 import java.util.regex.Pattern
-import scala.io.{BufferedSource, Source};
-
-import SetlType._
+import scala.io.{BufferedSource, Source}
 
 class CsvReader() {
 

@@ -1,6 +1,7 @@
 package scratch2
 
 import scratch2.SetlType.SetlType
+import scratch2.csv.{CsvReader, CsvWriter}
 
 import java.nio.file.Path
 import scala.io.Source

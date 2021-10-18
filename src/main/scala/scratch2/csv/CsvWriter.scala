@@ -1,9 +1,11 @@
-package scratch2
+package scratch2.csv
+
+import scratch2.DataFrame
+import scratch2.SetlType._
+import scratch2.ColType
 
 import java.io.{BufferedWriter, FileWriter}
 import java.nio.file.Path
-
-import SetlType._
 
 class CsvWriter {
 

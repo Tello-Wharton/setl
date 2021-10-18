@@ -10,15 +10,11 @@ object Main {
 
   def main(args: Array[String]): Unit = {
 
+    val setl = new Setl()
 
-    val csvReader = new CsvReader()
-
-    val source1 = Source.fromResource("example.csv")
-    val df1 = csvReader.getDataframe(source1)
-
-
-    val source2 = Source.fromResource("example2.csv")
-    val df2 = csvReader.getDataframe(source2, Seq(
+    val df1 = setl.csv("example.csv")
+    
+    val df2 = setl.csv("example2.csv", Seq(
       ("a", StringType),
       ("b", StringType),
       ("c", StringType),
@@ -29,11 +25,7 @@ object Main {
 
 //    println(df2.sort($"e").data)
 
-
-    val source3 = Source.fromResource("example3.csv")
-
-
-    val df3 = csvReader.getDataframe(source3, Seq(
+    val df3 = setl.csv("example3.csv", Seq(
       ("a", StringType),
       ("b", StringType),
       ("c", StringType),

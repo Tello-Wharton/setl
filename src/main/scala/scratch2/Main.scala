@@ -27,8 +27,7 @@ object Main {
     ))
 
 
-//    println(df2.sort($"e").data)
-//    println(df2.sort2($"e").data)
+    println(df2.sort($"e").data)
 
 
     val source3 = Source.fromResource("example3.csv")
@@ -42,8 +41,8 @@ object Main {
       ("e", IntegerType)
     ))
 
-    println(df3.sort2($"b", $"e").data)
-    println(df3.sort2($"c", $"e").data)
+    println(df3.sort($"b", $"e").data)
+    println(df3.sort($"c", $"e").data)
 
 
 

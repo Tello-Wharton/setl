@@ -26,27 +26,7 @@ class DataFrame(val schema: Seq[(String, SetlType)], val data: Seq[Seq[ColType]]
     return new DataFrame(schema, newData)
   }
 
-  def sort(col: Column): DataFrame = {
-
-    val newData = data.sortWith(sortColFunction(col))
-
-    return new DataFrame(schema, newData)
-  }
-
-  private def sortColFunction(col: Column): (Seq[ColType], Seq[ColType]) => Boolean = {
-    val f = col.func(this)
-
-    val setlType = schema.find(_._1 == col.name).map(_._2).get
-
-    setlType match {
-      case StringType => (row1, row2) => f(row1).asInstanceOf[String] < f(row2).asInstanceOf[String]
-      case IntegerType => (row1, row2) => f(row1).asInstanceOf[Int] < f(row2).asInstanceOf[Int]
-      case LongType => (row1, row2) => f(row1).asInstanceOf[Long] < f(row2).asInstanceOf[Long]
-      case BooleanType => (row1, row2) => f(row1).asInstanceOf[Boolean] < f(row2).asInstanceOf[Boolean]
-    }
-  }
-
-  def sort2(cols: Column*): DataFrame = {
+  def sort(cols: Column*): DataFrame = {
 
     val masterFunction = cols.
       map(sortColIntFunction(_)).

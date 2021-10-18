@@ -1,10 +1,14 @@
 package scratch2
 
 import scala.language.implicitConversions
-import SetlType.*
+
+import SetlType._
+import ColSortDir._
+
 import scratch2.Column.colTypeToSetlType
 
-class Column(val name: String, val setlType: SetlType, val func: Function[DataFrame, Function[Seq[ColType], ColType]]) {
+//TODO consider if mutable sortDir is appropriate
+class Column(val name: String, val setlType: SetlType, val func: Function[DataFrame, Function[Seq[ColType], ColType]], var sortDir : ColSortDir = Asc) {
   def this(name: String) = {
     this(name, SetlType.AnyType, df => {
 
@@ -30,20 +34,30 @@ class Column(val name: String, val setlType: SetlType, val func: Function[DataFr
 
     val name = s"${this.name} equals ${col.name}"
 
-    new Column(name, SetlType.BooleanType, df => {
+    new Column(name, BooleanType, df => {
       val f1 = this.func(df)
       val f2 = col.func(df)
 
       row => f1(row) == f2(row)
     })
   }
+
+  def asc : Column = {
+    this.sortDir = Asc
+    this
+  }
+
+  def desc : Column = {
+    this.sortDir = Desc
+    this
+  }
 }
 
 object Column {
   private def colTypeToSetlType(colType: ColType): SetlType = colType match {
-    case _: String => SetlType.StringType
-    case _: Int => SetlType.IntegerType
-    case _: Long => SetlType.LongType
-    case _: Boolean => SetlType.BooleanType
+    case _: String => StringType
+    case _: Int => IntegerType
+    case _: Long => LongType
+    case _: Boolean => BooleanType
   }
 }

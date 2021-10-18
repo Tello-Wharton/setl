@@ -1,6 +1,7 @@
 package scratch2
 
 import SetlType.*
+import ColSortDir._
 
 import java.util.function.BiFunction
 
@@ -56,31 +57,36 @@ class DataFrame(val schema: Seq[(String, SetlType)], val data: Seq[Seq[ColType]]
 
     val setlType = schema.find(_._1 == col.name).map(_._2).get
 
+    val sortDir = col.sortDir match {
+      case Asc => 1
+      case Desc => -1
+    }
+
     setlType match {
       case StringType => (row1, row2) => {
         val a = f(row1).asInstanceOf[String]
         val b = f(row2).asInstanceOf[String]
 
-        a.compareTo(b)
+        sortDir * a.compareTo(b)
       }
       case IntegerType => (row1, row2) => {
         val a = f(row1).asInstanceOf[Int]
         val b = f(row2).asInstanceOf[Int]
 
-        a.compareTo(b)
+        sortDir * a.compareTo(b)
 
       }
       case LongType => (row1, row2) => {
         val a = f(row1).asInstanceOf[Long]
         val b = f(row2).asInstanceOf[Long]
 
-        a.compareTo(b)
+        sortDir * a.compareTo(b)
       }
       case BooleanType => (row1, row2) => {
         val a = f(row1).asInstanceOf[Boolean]
         val b = f(row2).asInstanceOf[Boolean]
 
-        a.compareTo(b)
+        sortDir * a.compareTo(b)
       }
     }
   }

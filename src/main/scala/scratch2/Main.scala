@@ -47,5 +47,8 @@ object Main {
 
     setl.writeCsv(df4, Paths.get("D:\\example.csv"))
 
+
+    println(df3.select($"e" + $"d").data)
+
   }
 }

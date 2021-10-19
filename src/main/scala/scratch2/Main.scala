@@ -50,5 +50,11 @@ object Main {
 
     println(df3.select($"e" + $"d").data)
 
+
+    val time2udf = udf((item) => item.asInstanceOf[Int] * 2)
+
+    println(df3.select(time2udf($"e")).data)
+
+
   }
 }

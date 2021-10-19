@@ -27,9 +27,8 @@ object Main {
       val out = new ByteArrayOutputStream
 
 
-      val bufferSize = 2
+      val bufferSize = 20
       val buff = ByteBuffer.allocate(bufferSize)
-
 
 
       while (readerChannel.read(buff) > 0) {

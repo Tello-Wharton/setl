@@ -18,6 +18,15 @@ class DataFrame(val schema: Seq[(String, SetlType)], val data: Seq[Seq[ColType]]
     return new DataFrame(newSchema, newData)
   }
 
+  def withColumn(colName: String, column: Column): DataFrame = {
+
+    val colFunc = column.func(this)
+    val newSchema = this.schema :+ (colName, column.setlType(this))
+    val newData = data.map(row => row :+ colFunc(row))
+
+    return new DataFrame(newSchema, newData)
+  }
+
   def filter(filterCol: Column): DataFrame = {
 
     val f = filterCol.func(this)
@@ -94,7 +103,7 @@ class DataFrame(val schema: Seq[(String, SetlType)], val data: Seq[Seq[ColType]]
   def show(): Unit = {
 
     println(schema.map(_._1).reduceLeft((h1, h2) => h1 + "\t" + h2))
-    data.foreach(row => println(row.reduceLeft((r1, r2) => r1.toString + "\t" + r2.toString)) )
+    data.foreach(row => println(row.reduceLeft((r1, r2) => r1.toString + "\t" + r2.toString)))
 
   }
 }

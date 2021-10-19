@@ -25,9 +25,8 @@ class Column(val name: String, val setlType: Function[DataFrame, SetlType], val 
     })
   }
 
-  def this(name: String, lit: ColType) = {
-
-    this(name, colTypeToSetlType(lit), df => {
+  def this(lit: ColType) = {
+    this(s"lit(${lit})", colTypeToSetlType(lit), df => {
       row => lit
     })
   }

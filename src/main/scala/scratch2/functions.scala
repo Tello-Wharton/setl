@@ -10,7 +10,7 @@ object functions {
     }
   }
 
-  def lit(lit : ColType) : Column = new Column("", lit)
+  def lit(lit : ColType) : Column = new Column(lit)
 
   def udf(function: Function[ColType, ColType]) : Function[Column, Column] = col => {
 

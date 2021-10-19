@@ -90,4 +90,11 @@ class DataFrame(val schema: Seq[(String, SetlType)], val data: Seq[Seq[ColType]]
       }
     }
   }
+
+  def show(): Unit = {
+
+    println(schema.map(_._1).reduceLeft((h1, h2) => h1 + "\t" + h2))
+    data.foreach(row => println(row.reduceLeft((r1, r2) => r1.toString + "\t" + r2.toString)) )
+
+  }
 }

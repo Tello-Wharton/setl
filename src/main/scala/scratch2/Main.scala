@@ -55,6 +55,8 @@ object Main {
 
     println(df3.select(time2udf($"e")).data)
 
+    df3.select(time2udf($"e")).show()
+
 
   }
 }

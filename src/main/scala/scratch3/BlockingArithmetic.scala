@@ -29,7 +29,7 @@ object BlockingArithmetic {
       lines.
         map(commaSplitter.split(_)).
         map(numArray => numArray.map(_.toLong)).
-        map(numArray => numArray(0) * 2 + numArray(0) * 3 + numArray(0) * 4).
+        map(numArray => numArray(0) * 2 + numArray(1) * 3 + numArray(2) * 4).
         map("\n" + _).
         foreach(writer.write(_))
     })

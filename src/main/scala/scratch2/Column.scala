@@ -50,8 +50,8 @@ class Column(val name: String, val setlType: Function[DataFrame, SetlType], val 
       val f1 = this.func(df)
       val f2 = col.func(df)
 
-      val t1 = df.schema.find(_._1 == this.name).map(_._2).get
-      val t2 = df.schema.find(_._1 == col.name).map(_._2).get
+      val t1 = this.setlType(df)
+      val t2 = this.setlType(df)
 
       val isT1number = t1 match {
         case IntegerType | LongType => true

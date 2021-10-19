@@ -12,11 +12,10 @@ class DataFrame(val schema: Seq[(String, SetlType)], val data: Seq[Seq[ColType]]
   def select(cols: Column*): DataFrame = {
 
     val colFuncs = cols.map(_ func this)
-    val newSchema = cols.map(_.name)
+    val newSchema = cols.map(col => (col.name, col.setlType(this)))
     val newData = data.map(row => colFuncs.map(_ (row)))
 
-    //TODO was not updating with new schema
-    return new DataFrame(schema, newData)
+    return new DataFrame(newSchema, newData)
   }
 
   def filter(filterCol: Column): DataFrame = {

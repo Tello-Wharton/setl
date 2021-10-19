@@ -8,9 +8,11 @@ import ColSortDir._
 import scratch2.Column.colTypeToSetlType
 
 //TODO consider if mutable sortDir is appropriate
-class Column(val name: String, val setlType: SetlType, val func: Function[DataFrame, Function[Seq[ColType], ColType]], var sortDir: ColSortDir = Asc) {
+class Column(val name: String, val setlType: Function[DataFrame, SetlType], val func: Function[DataFrame, Function[Seq[ColType], ColType]], var sortDir: ColSortDir = Asc) {
   def this(name: String) = {
-    this(name, SetlType.AnyType, df => {
+    this(name, df => {
+      df.schema.find(_._1 == name).map(_._2).get
+    }, df => {
 
       val schema = df.schema
       val data = df.data
@@ -34,7 +36,7 @@ class Column(val name: String, val setlType: SetlType, val func: Function[DataFr
 
     val name = s"${this.name} equals ${col.name}"
 
-    new Column(name, BooleanType, df => {
+    new Column(name, df => BooleanType, df => {
       val f1 = this.func(df)
       val f2 = col.func(df)
 
@@ -45,7 +47,7 @@ class Column(val name: String, val setlType: SetlType, val func: Function[DataFr
   def +(col: Column): Column = {
     val name = s"${this.name} equals ${col.name}"
 
-    new Column(name, AnyType,  df => {
+    new Column(name, df => LongType, df => {
       val f1 = this.func(df)
       val f2 = col.func(df)
 
@@ -67,12 +69,12 @@ class Column(val name: String, val setlType: SetlType, val func: Function[DataFr
       if (!areNumbers) throw new RuntimeException("Not numbers!")
 
       val t1Function = t1 match {
-        case IntegerType => (item : ColType) => item.asInstanceOf[Int].toLong
+        case IntegerType => (item: ColType) => item.asInstanceOf[Int].toLong
         case LongType => (item: ColType) => item.asInstanceOf[Long]
       }
 
       val t2Function = t2 match {
-        case IntegerType => (item : ColType) => item.asInstanceOf[Int].toLong
+        case IntegerType => (item: ColType) => item.asInstanceOf[Int].toLong
         case LongType => (item: ColType) => item.asInstanceOf[Long]
       }
 
@@ -93,10 +95,10 @@ class Column(val name: String, val setlType: SetlType, val func: Function[DataFr
 }
 
 object Column {
-  private def colTypeToSetlType(colType: ColType): SetlType = colType match {
-    case _: String => StringType
-    case _: Int => IntegerType
-    case _: Long => LongType
-    case _: Boolean => BooleanType
+  private def colTypeToSetlType(colType: ColType): Function[DataFrame, SetlType] = colType match {
+    case _: String => df => StringType
+    case _: Int => df => IntegerType
+    case _: Long => df => LongType
+    case _: Boolean => df => BooleanType
   }
 }

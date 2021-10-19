@@ -58,5 +58,10 @@ object Main {
     df3.select(time2udf($"e")).show()
 
 
+    df3.show()
+
+    df3.select($"e", $"d").show()
+
+
   }
 }

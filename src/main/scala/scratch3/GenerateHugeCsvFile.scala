@@ -16,7 +16,7 @@ object GenerateHugeCsvFile {
 
 
       bw.write(s"${0},${0},${0}")
-      
+
       (0L to 1_00_000_000L).foreach((n) => {
 
         bw.write("\n")

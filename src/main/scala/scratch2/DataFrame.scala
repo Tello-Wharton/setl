@@ -15,6 +15,7 @@ class DataFrame(val schema: Seq[(String, SetlType)], val data: Seq[Seq[ColType]]
     val newSchema = cols.map(_.name)
     val newData = data.map(row => colFuncs.map(_ (row)))
 
+    //TODO was not updating with new schema
     return new DataFrame(schema, newData)
   }
 
